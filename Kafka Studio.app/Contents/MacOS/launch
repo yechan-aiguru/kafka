@@ -1,0 +1,10 @@
+#!/bin/zsh
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+PROJECT_ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+if ! command -v node >/dev/null 2>&1; then
+  mkdir -p "$PROJECT_ROOT/local-agent/.local"
+  print 'Node.js 22.18 이상을 설치한 뒤 Kafka Studio를 다시 실행하세요.' > "$PROJECT_ROOT/local-agent/.local/실행 오류.txt"
+  /usr/bin/open "$PROJECT_ROOT/local-agent/.local/실행 오류.txt"
+  exit 1
+fi
+exec node "$PROJECT_ROOT/local-agent/launcher/launch.mjs"
